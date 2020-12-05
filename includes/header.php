@@ -58,6 +58,7 @@
                     <li><a href="./index.php">Home</a>
 					<li><a href="./about.php">About Project</a></li>
 						<!-- session check for signin. -->
+						<!--  if($_SESSION['login'] != 1) -->
 					<?php if($_SESSION['login'] != 1) {?>
 						<li><a href="./product-listing.php">All Arts</a></li>
 						<li><a href="./company-listing.php">All Categories</a></li>
@@ -72,8 +73,10 @@
     <input type="submit" name="submit" value="Search">
     </form>
 </li>
-					<?php } ?>
+					<?php } ?>		
+
 					<!-- session show if user is signed (in database customer role is 2). -->
+					<!-- $_SESSION['user_details']['user_level_id'] == 2 -->
 					<?php if($_SESSION['user_details']['user_level_id'] == 2) {?>
 						<li><a href="./login-home.php">Dashboard</a></li>
 						<li><a href="#">Arts Shoping</a>
@@ -92,13 +95,13 @@
 						<li><a href="./change-password.php">Change Password</a></li>
 						<!-- login=0 -->
 						<li><a href="./lib/login.php?act=logout">Logout</a></li>
-						<li>
-					
-						<form action="search.php" method="post">
-    <input style="hight:30px" type="text" name="search" required>
-    <input type="submit" name="submit" value="Search">
-    </form>
-</li>
+						
+						<!-- <li>
+							<form action="search.php" method="post">
+    							<input style="hight:30px" type="text" name="search" required>
+    							<input type="submit" name="submit" value="Search">
+    						</form>
+						</li> -->
 						
 					<?php } ?>
                     </ul>
@@ -106,4 +109,3 @@
                     </div>
             </div>
     </div>
-<!-- index.php next -> -->

@@ -59,7 +59,7 @@ global $SERVER_PATH;
 
 					</div>
 					<?php } ?>
-			</div>
+		</div>
     <div class="clear"></div>
   </div>
   <div class="clear"></div>
