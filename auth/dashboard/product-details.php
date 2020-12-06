@@ -5,27 +5,14 @@
         header("Location: /online_art_gallery/auth/index.php?AcessDenied!");
     }
 ?>
-<!-- Bootstrap CSS -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 
-<nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="/online_art_gallery/auth/dashboard/index.php">Online Art Gallery</a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="/online_art_gallery/auth/dashboard/index.php">Home</a></li>
-                <li><a href="#">Store</a></li>
-                <li><a href="#">Page 2</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['auth_name'];?></a></li>
-                <li><a href="/online_art_gallery/auth/includes/auth.logout.php"><span class="glyphicon glyphicon-log-in"></span> Logut</a></li>
-            </ul>
-        </div>
-</nav>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/online_art_gallery/auth/dashboard/css/style.css">
+<div class="navbar">
+	<a class="active" href="/online_art_gallery/auth/dashboard/index.php"><i class="fa fa-fw fa-home"></i> Online Art Gallery</a>
+	<a href="/online_art_gallery/auth/includes/auth.logout.php" class="login-name" style="float: right;"><i class="fa fa-fw fa-sign-out"></i> Logout</a>
+	<a href="#" style="float: right";><i class="fa fa-fw fa-user"></i> <?php echo strtoupper($_SESSION['auth_name']);?></a>
+</div>
 
 <link rel="stylesheet" type="text/css" href="/online_art_gallery/css/style.css" />
 <link rel="stylesheet" type="text/css" href="/online_art_gallery/css/ddsmoothmenu.css" />
@@ -98,52 +85,88 @@ function goToPage(product_id, product_cost)
 				}
 				?>
 				<div id="myrow">
-					
+				<form action="/online_art_gallery/auth/dashboard/lib/product.php" enctype="multipart/form-data" method="post" name="prod_form">
+				
 				<table>
-						<tr>
-							<th>Art ID</th>
-							<td><?=$data[product_id]?></td>
-						</tr>
-						<tr>
-							<th>Art Name</th>
-							<td><?=$data[product_name]?></td>
-						</tr>
-						<tr>
-							<th>Artist Name</th>
-							<td><?=$data[artist_name]?></td>
-						</tr>
-						<tr>
-							<th>Artist Id</th>
-							<td><?=$data[artist_id]?></td>
-						</tr>
-						<tr>
-							<th>Artist Description</th>
-							<td><?=$data[artist_desc]?></td>
-						</tr>
-						<tr>
-							<th>Art Type</th>
-							<td><?=$data[type_name]?></td>
-						</tr>
-						<tr>
-							<th>Art Name</th>
-							<td><?=$data[product_name]?></td>
-						</tr>
-						<tr>
-							<th>Art Category</th>
-							<td><?=$data[company_name]?></td>
-						</tr>
-						<tr>
-							<th>Art Price</th>
-							<td><?=$data[product_price]?></td>
-						</tr>
-						<tr>
-							<th>Art Description</th>
-							<td><?=$data[product_description]?></td>
-						</tr>
+					<tr>
+					<ul class="forms">
+							<th><li class="txt">Art ID</li></th>
+							<td><li class="inputfield" style="list-style-type: none;"><input name="product_id" type="text" class="bar" required value="<?=$data[product_id]?>" readonly="readonly"/></li></td>
+					</ul>
+					</tr>
+					<tr>
+					<ul class="forms">
+							<th>
+							<li class="txt">Art Name *</li></th>
+							<td><li class="inputfield" style="list-style-type: none;"><input name="product_name" type="text" class="bar" required value="<?=$data[product_name]?>"/></li></td>
+					</ul>
+					</tr>
+					<tr>
+					<ul class="forms">
+							<th>
+							<li class="txt">Artist Name</li></th>
+							<td><li class="inputfield" style="list-style-type: none;"><input name="artist_name" type="text" class="bar" required value="<?=$data[artist_name]?>" disabled/></li></td>
+					</ul>
+					</tr>
+					<tr>
+					<ul class="forms">
+							<th>
+							<li class="txt">Artist Id</li></th>
+							<td><li class="inputfield" style="list-style-type: none;"><input name="artist_id" type="text" class="bar" required value="<?=$data[artist_id]?>" disabled/></li></td>
+					</ul>
+					</tr>
+					<tr>
+					<ul class="forms">
+							<th>
+							<li class="txt">Artist Description</li></th>
+							<td><li class="inputfield" style="list-style-type: none;"><input name="artist_desc" type="text" class="bar" required value="<?=$data[artist_desc]?>" disabled/></li></td>
+					</ul>
+					</tr>
+					<tr>
+					<ul class="forms">
+							<th>
+							<li class="txt">Art Type</li></th>
+							<td><li class="inputfield" style="list-style-type: none;"><input name="type_name" type="text" class="bar" required value="<?=$data[type_name]?>" disabled/></li></td>
+					</ul>
+					</tr>
+					<tr>
+					<ul class="forms">
+							<th>
+							<li class="txt">Art Category</li></th>
+							<td><li class="inputfield" style="list-style-type: none;"><input name="company_name" type="text" class="bar" required value="<?=$data[company_name]?>" disabled/></li></td>
+					</ul>
+					</tr>
+					<tr>
+					<ul class="forms">
+							<th>
+							<li class="txt">Art Price ₹</li></th>
+							<td><li class="inputfield" style="list-style-type: none;"><input name="product_price" type="text" class="bar" required value="<?=$data[product_price]?>"/></li></td>
+					</ul>
+					</tr>
+					<tr>
+						<ul class="forms">
+								<th>
+								<li class="txt">Art Description *</li></th>
+								<td><li class="inputfield" style="list-style-type: none;"><input name="product_description" type="text" class="bar" required value="<?=$data[product_description]?>"/></li></td>
+						</ul>
+					</tr>
+					<tr>
+						<ul class="forms">
+								<th>
+								<li class="txt">Stock *</li></th>
+								<td><li class="inputfield" style="list-style-type: none;"><input name="product_stock" type="text" class="bar" required value="<?=$data[product_stock]?>"/></li></td>
+						</ul>
+					</tr>
 					</table>
-					<div style="text-align:right; margin-top: 33px;">
-						<a href="#" onClick="goToPage(<?=$data[product_id]?>,<?=$data[product_price]?>)" class="button-link">Add to Cart</a>
-					</div>
+					<ul class="forms" style="float: right; padding: 8px 0px 5px 0px">
+						<li class="txt">&nbsp;</li>
+						<li class="textfield"><input type="submit" value="Update" class="simplebtn"></li>
+						<li class="textfield"><input type="reset" value="Reset" class="resetbtn"></li>
+					</ul>
+
+					<!-- Prod update -->
+					<input type="hidden" name="act" value="update_product">
+					</form>
 			</div><br><br>
 			
 			<h4 class="heading colr">All Related Arts</h4>
@@ -181,7 +204,6 @@ function goToPage(product_id, product_cost)
 								<tr>
 									<td colspan="2" style="text-align:center; padding:12px;">
 										<a href="product-details.php?product_id=<?php echo $product_data[product_id] ?>" class="button-link">View Details</a>
-										<a href="#"  onClick="goToPage(<?=$data[product_id]?>,<?=$data[product_price]?>)" class="button-link">Add to Cart</a>
 									</td>
 								</tr>
 							</table>
@@ -197,3 +219,11 @@ function goToPage(product_id, product_cost)
 			<div><img src="<?=$SERVER_PATH.'/online_art_gallery/uploads/'.$data[product_image]?>" style="width: 250px"></div><br>
 		</div>
 	</div>
+
+
+	<!-- if ($stock <= "0") {
+							echo "Out of Stock";
+						}
+						else {
+							echo '<a href="#"  onClick="goToPage(<?=$data[product_id]?>,<?=$data[product_price]?>)" class="button-link">Add to Cart</a>';
+						} -->

@@ -5,7 +5,7 @@
 	$SQL = "SELECT * FROM `order` WHERE order_id = '$_REQUEST[order_id]'";
 	$rs = mysqli_query($con,$SQL) or die(mysqli_error($con));
 	$data = mysqli_fetch_assoc($rs);
-?> 
+?>
 	<div class="crumb">
     </div>
     <div class="clear"></div>
@@ -87,6 +87,11 @@
 				<img src="./images/payment2.jpg" alt="" style="width:250px;margin-top:20px;"/>
 			</div>
 		</div>
+		<?php
+			echo "Qty: ".$quantity = $data['oi_cart_quantity'];
+			echo "<br>";
+			echo "Stock: ".$data['product_stock'];
+		?>
 	</div>
 <?php include_once("includes/footer.php"); ?> 
 

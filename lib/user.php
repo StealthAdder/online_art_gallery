@@ -38,11 +38,6 @@
 		$rs=mysqli_query($con,$SQL);
 		$data=mysqli_fetch_assoc($rs);
 		
-		// if($data['user_username'] == $R['user_username'])
-		// {
-		// 	header("Location:../user.php?msg=Username Already Exits. Kindly choose another....");
-		// 	return;
-		// }
 		/////////////////////////////////////
 		$image_name = $_FILES[user_image][name];
 		$location = $_FILES[user_image][tmp_name];

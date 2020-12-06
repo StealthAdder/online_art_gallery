@@ -66,8 +66,8 @@
 						<li><a href="./login.php">Login</a></li>
 						<li><a href="./user.php">Register</a></li>
 						<li><a href="./contact.php">Contact Us</a></li>
+						<li><a href="/online_art_gallery/auth/dashboard/index.php" style="float: left;">Admin</a></li>
 						<li>
-					
 						<form action="search.php" method="post">
     <input style="hight:30px" type="text" name="search" required>
     <input type="submit" name="submit" value="Search">

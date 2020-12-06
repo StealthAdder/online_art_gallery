@@ -30,7 +30,7 @@ th {
 					  <tr class="tablehead bold">
 							<th>Sr. No.</th>
 							<th>Image</th>
-							<th>Cake Name</th>
+							<th>Product Name</th>
 							<th>Cost</th>
 							<th>Quantity</th>
 							<th>Total</th>
@@ -50,8 +50,32 @@ $SQL="SELECT * FROM `order_item`,`order`,`art` WHERE oi_product_id = product_id 
 								<td><?=$data[oi_price_per_unit]?></td>
 								<td><?=$data[oi_cart_quantity]?></td>
 								<td id="total_item_cost<?=$sr_no?>"><?=$data[oi_total]*$data[oi_cart_quantity]?></td>
-
+							<!-- echo product stock and quantity -->
+							<?php
+								echo "Qty: ".$quantity = $data['oi_cart_quantity'];
+								echo "<br>";
+								echo "Stock: ".$data['product_stock'];
+							?>
 					  </tr>
+					  <?php  
+						// update stock to db
+
+						$stock = $data['product_stock'];
+						$rem = $data['oi_cart_quantity'];
+						$remaining_stock = $stock - $rem;
+						echo "Remaining stock is: ".$remaining_stock;
+						echo "Product_id: ".$data[product_id];
+
+						if ($data['product_id']) {
+							$statement = "UPDATE `art` SET `product_stock` = $remaining_stock";
+							$cond = " WHERE `product_id` = $data[product_id]";
+							$condQuery = "";
+						}
+						
+						$sql1= $statement."".$cond;
+
+        				$rs1 = mysqli_query($con,$sql1) or die(mysqli_error($con));
+					 ?>
 					  <?php } ?>
 					  <tr>
 						<td colspan="6" style="text-align:right; font-weight:bold; font-size:18px;"> Total Cost : <span id="total_cost"><?=$total_cost?>.00/-</span></td>

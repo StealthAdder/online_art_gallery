@@ -53,9 +53,10 @@ th {
 					  <tr class="tablehead bold">
 							<th>Sr. No.</th>
 							<th>Image</th>
-							<th>Cake Name</th>
+							<th>Product Name</th>
 							<th>Cost</th>
-							<th>Quantity</th>
+							<th>Stocks</th>
+							<th>Qty <?php echo "Check Stock!"?></th>
 							<th>Total</th>
 							<th><i class="icon_cogs"></i> Action</th>
 					  </tr>
@@ -71,7 +72,9 @@ th {
 								<td><a href="product-details.php?product_id=<?php echo $data[product_id] ?>"><img src="<?=$SERVER_PATH.'uploads/'.$data[product_image]?>" style="height:50px; width:50px"></a></td>
 								<td><?=$data[product_name]?></td>
 								<td><?=$data[oi_price_per_unit]?></td>
+								<td><?=$data[product_stock]?></td>
 								<td style="text-align:center">
+								
 								<input type="text" value="<?=$data[oi_cart_quantity]?>" name="order_quantity[]" style="text-align:center; font-weight:bold;" onChange="calculateCost(this,<?=$sr_no?>,<?=$data[oi_price_per_unit]?>)">
 								</td>
 								<td id="total_item_cost<?=$sr_no?>"><?=$data[oi_total]?></td>
@@ -93,7 +96,10 @@ $_SESSION["totalcost"] = $total_cost;
 					 
 						</tbody>
 				</table>
-			  
+				<!-- test -->
+		
+				<!-- check for stock and prevent payment -->
+				<!-- SQL art and get stock info -->
 			  <div style="margin:10px; text-align:right;"><input type="submit"  value="Place Order" style="width:200px; margin-top:10px" class="button-link"></div>
 			  <input type="hidden" name="total_cost_final" id="total_cost_final" value="<?=$total_cost?>">
 			  <input type="hidden" name="act" value="update_cart"/>
