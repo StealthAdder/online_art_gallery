@@ -3,7 +3,7 @@
     if (isset($_POST['auth-login'])) {
         // //connection
         // global $con;
-        include ("/var/www/html/access/access_art.php");
+        include ("/var/www/html/online_art_gallery/auth/access/access_art.php");
 
         // $con = mysqli_connect("", "root", "", "online_art_gallery");
         $con = mysqli_connect($server, $user, $pass, $db);
