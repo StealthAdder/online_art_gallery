@@ -65,6 +65,20 @@ INSERT INTO `art` (`product_id`, `product_name`, `product_type_id`, `product_com
 
 -- --------------------------------------------------------
 
+-- Table structure for table `auth_users`
+CREATE TABLE auth_user (
+auth_id INT(13) NOT NULL PRIMARY KEY,
+user_level_id varchar(255) DEFAULT NULL,
+auth_name TINYTEXT NOT NULL,
+auth_username TINYTEXT NOT NULL,
+auth_password TINYTEXT NOT NULL);
+
+
+INSERT INTO `auth_user` (`auth_id`, `user_level_id`, `auth_name`, `auth_username`, `auth_password`) 
+VALUES ('001', '1', 'Dhruva', 'dhruva', '$2y$12$OphBFRWGphdx.BK.QhO/hOd.nNYqsOes0JDm9HdVMxqRcX6CH.riW'), 
+('002', '1', 'Vaishnavi', 'vaishnavi', '$2y$12$OphBFRWGphdx.BK.QhO/hOd.nNYqsOes0JDm9HdVMxqRcX6CH.riW');
+
+
 --
 -- Table structure for table `Artists`
 --

@@ -1,18 +1,28 @@
+<!-- redirected when My account is clicked. -->
+<!-- $_SESSION['user_details'] and user_id is pushed through URL -->
 <?php 
 	include_once("includes/header.php"); 
+	// check if user_id exists for ex: user_id=2
 	if($_REQUEST[user_id])
 	{
+		// get all info from user table for that user_id
 		$SQL="SELECT * FROM user WHERE user_id = $_REQUEST[user_id]";
 		$rs=mysqli_query($con,$SQL) or die(mysqli_error($con));
 		$data=mysqli_fetch_assoc($rs);
+		// acquired info in form of array on data var.
 	}
+	
+	// type contains nothing!
 	if($_REQUEST['type'])
 	{
 		$data[user_level_id] = $_REQUEST['type'];
 	}
+	// check user type and store it in heading var.
 	if($data['user_level_id'] == 1) $heading = "System User";
 	if($data['user_level_id'] == 2) $heading = "Customer";
-?> 
+	// echo $heading
+?>
+
 <script>
 
 jQuery(function() {
@@ -30,6 +40,8 @@ jQuery(function() {
 		}
 	});
 });
+
+// checking for change of password i guess??????
 function validateForm(obj) {
 	if(obj.user_password.value != obj.user_confirm_password.value) {
 		alert("Password and confirm password doesnot match. ");
@@ -40,6 +52,8 @@ function validateForm(obj) {
 	jQuery('#error-msg').show();
 	return false;
 }
+
+
 </script>
 	<div class="crumb">
     </div>
@@ -48,22 +62,41 @@ function validateForm(obj) {
 		<div class="col1">
 			<div class="contact">
 				<h4 class="heading colr">User Registration Form</h4>
+				
+				<!-- Error msg -->
 				<?php
 				if($_REQUEST['msg']) { 
 				?>
-				<div class="msg"><?=$_REQUEST['msg']?></div>
+				<div class="msg">
+					<?=$_REQUEST['msg']?>
+				</div>
 				<?php
 				}
 				?>
+				<!-- Error Message for email -->
 				<div class="msg" style="display:none" id="error-msg">Enter valid EmailID !!!</div>
+				
+				<!-- Form with filled info user_details -->
+				<!-- Onsubmit validateFrom to check -->
+				
+				<!-- Form name set to "frm_user" -->
+
 				<form action="lib/user.php" enctype="multipart/form-data" method="post" name="frm_user" onsubmit="return validateForm(this)">
 					<ul class="forms">
 						<li class="txt">Name</li>
 						<li class="inputfield"><input name="user_name" type="text" class="bar" required value="<?=$data[user_name]?>"/></li>
 					</ul>
-					<?php if($_SESSION['user_details']['user_level_id'] == 1) {?>
 					
+
+					<!-- check user_level_id for admin/system user -->
+					<!-- using the same form to create and edit users -->
+					<?php if($_SESSION['user_details']['user_level_id'] == 1) {?>
+					<!-- nothing to display? if the session user_level_id is 1 -->
+					
+					<!-- removing ! display the username and passwords -->
 					<?php } if(!(isset($_REQUEST['user_id'])) || $_REQUEST['user_id'] == "")  { ?>
+
+					<!-- if user_id or user_id empty provide access to edit username -->
 					<ul class="forms">
 						<li class="txt">Username</li>
 						<li class="inputfield"><input name="user_username" type="text" class="bar" required value="<?=$data[user_username]?>"/></li>
@@ -77,6 +110,10 @@ function validateForm(obj) {
 						<li class="inputfield"><input name="user_confirm_password" id="user_confirm_password" type="password" class="bar" required value="<?=$data[user_password]?>"/></li>
 					</ul>
 					<?php } ?>
+
+
+
+					
 					<ul class="forms">
 						<li class="txt">Mobile</li>
 						<li class="inputfield"><input onKeypress="goods='0123456789'; return limitchar(event)" name="user_mobile" type="text" class="bar" required value="<?=$data[user_mobile]?>"/></li>
@@ -131,6 +168,7 @@ function validateForm(obj) {
 						<li class="textfield"><input type="submit" value="Submit" class="simplebtn"></li>
 						<li class="textfield"><input type="reset" value="Reset" class="resetbtn"></li>
 					</ul>
+					<!-- act is set to save_user to update the changes -->
 					<input type="hidden" name="act" value="save_user">
 					<input type="hidden" name="avail_image" value="<?=$data[user_image]?>">
 					<input type="hidden" name="user_id" value="<?=$data[user_id]?>">

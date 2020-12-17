@@ -12,10 +12,12 @@
 	$product_rs=mysqli_query($con,$SQL) or die(mysqli_error($con));
 ?> 
 <script>
+
 function goToPage(product_id, product_cost)
 {
 	location.href = "lib/cart.php?act=save_item&product_id="+product_id+"&cost="+product_cost;
 }
+
 </script>
 	<div class="crumb">
     </div>
@@ -32,7 +34,6 @@ function goToPage(product_id, product_cost)
 				}
 				?>
 				<div id="myrow">
-					
 				<table>
 						<tr>
 							<th>Art ID</th>
@@ -74,9 +75,23 @@ function goToPage(product_id, product_cost)
 							<th>Art Description</th>
 							<td><?=$data[product_description]?></td>
 						</tr>
+						<tr>
+							<th>Stock</th>
+							<td><?=$data[product_stock]?></td>
+						</tr>
 					</table>
 					<div style="text-align:right; margin-top: 33px;">
-						<a href="#" onClick="goToPage(<?=$data[product_id]?>,<?=$data[product_price]?>)" class="button-link">Add to Cart</a>
+					<?php 
+						$stock = $data['product_stock'];
+						// echo $stock;
+						if ($stock <= 0) {
+							echo "Out of Stock";
+						}
+						else {
+							echo '<a href="#"  onClick="goToPage('.$data['product_id'].','.$data['product_price'].')" class="button-link">Add to Cart</a>';
+						}
+						
+					?>
 					</div>
 			</div><br><br>
 			<h4 class="heading colr">All Related Arts</h4>

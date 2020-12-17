@@ -1,3 +1,7 @@
+<!-- lib includes the following -->
+<!-- ($_REQUEST[act]=="save_user")  -->
+<!-- ($_REQUEST[act]=="delete_user") -->
+<!-- ($_REQUEST[act]=="get_report") -->
 <?php
 	session_start();
 	include_once("../includes/db_connect.php");
@@ -5,6 +9,12 @@
 	if($_REQUEST[act]=="save_user")
 	{
 		save_user();
+		exit;
+	}
+	// Update user
+	if($_REQUEST[act]=="update_user")
+	{
+		update_user();
 		exit;
 	}
 	if($_REQUEST[act]=="delete_user")
@@ -17,6 +27,78 @@
 		get_report();
 		exit;
 	}
+
+	#### Code to update user ########
+	function update_user()
+	{
+		global $con;
+		$R=$_REQUEST;
+		///Checking Username Exits or not ////
+		$SQL="SELECT * FROM user WHERE user_username = '$_REQUEST[user_username]'";
+		$rs=mysqli_query($con,$SQL);
+		$data=mysqli_fetch_assoc($rs);
+		
+		/////////////////////////////////////
+		$image_name = $_FILES[user_image][name];
+		$location = $_FILES[user_image][tmp_name];
+		if($image_name!="")
+		{
+			move_uploaded_file($location,"../uploads/".$image_name);
+		}
+		else
+		{
+			$image_name = $R[avail_image];
+		}
+		if($R[user_level_id] == "" || !isset($R[user_level_id]))
+		{
+			$R[user_level_id] = 2;
+		}
+		if($R[user_id])
+		{
+			$statement = "UPDATE `user` SET";
+			$cond = "WHERE `user_id` = '$R[user_id]'";
+			$msg = "Data Updated Successfully.";
+			$condQuery = "";
+		}
+		else
+		{
+			$statement = "INSERT INTO `user` SET";
+			$condQuery = "`user_username` = '$R[user_username]', 
+						  `user_password` = '$R[user_password]',"; 
+			$cond = "";
+			$msg="Data saved successfully.";
+		}
+		$SQL=   $statement." 
+				`user_level_id` = '2', 
+				".
+				 $condQuery
+				 ."
+				`user_name` = '$R[user_name]', 
+				`user_add1` = '$R[user_add1]', 
+				`user_add2` = '$R[user_add2]', 
+				`user_city` = '$R[user_city]', 
+				`user_state` = '$R[user_state]', 
+				`user_country` = '$R[user_country]', 
+				`user_email` = '$R[user_email]', 
+				`user_mobile` = '$R[user_mobile]', 
+				`user_gender` = '$R[user_gender]', 
+				`user_dob` = '$R[user_dob]',
+				`user_image` = '$image_name'". 
+				 $cond;
+		$rs = mysqli_query($con,$SQL) or die(mysqli_error($con));
+		
+		if($_SESSION['login']!=1)
+		{
+			header("Location:../login.php?msg=You are registered successfully. Login with your credential !!!");
+			exit;
+		}
+		else if($_SESSION['user_details']['user_level_id'] == 2) {
+			header("Location:../user_update.php?user_id=".$_SESSION['user_details']['user_id']."&msg=Your account updated successfully !!!");
+			exit;
+		}
+		header("Location:../user-report.php?msg=$msg&type=$R[user_level_id]");
+	}
+
 	###Code for save user#####
 	function save_user()
 	{
@@ -27,10 +109,10 @@
 		$rs=mysqli_query($con,$SQL);
 		$data=mysqli_fetch_assoc($rs);
 		if($data['user_username'] == $R['user_username'])
-		 {
+		{
 			header("Location:../user.php?msg=Username Already Exits. Kindly choose another....");
 			return;
-		 }
+		}
 		/////////////////////////////////////
 		$image_name = $_FILES[user_image][name];
 		$location = $_FILES[user_image][tmp_name];

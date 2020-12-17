@@ -99,12 +99,9 @@
 		/// Update Order ////
 		$SQL = "UPDATE `order` SET order_amount = ".$R['total_cost_final'].", order_status = 'Confirmed' WHERE order_id = ".$order_id;
 		$rs = mysqli_query($con,$SQL) or die(mysqli_error($con));
-		header("Location:../payment.php?order_id=$order_id");	
-		
-		
-		
-	}
+		header("Location:../payment.php?order_id=$order_id");
 
+	}
 	
 	#########Function for delete cart##########3
 	function delete_cart()
@@ -114,6 +111,5 @@
 		$rs=mysqli_query($con,$SQL);
 		header("Location:../report-cart.php?msg=Item Deleted Successfully.");
 	}
-	
-	
+
 ?>
